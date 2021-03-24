@@ -68,8 +68,8 @@ namespace CopaData.Drivers.Samples.Basic
     }
 
     public Task<bool> WriteStringAsync(string symbolicAddress, string value, DateTime dateTime, StatusBits status)
-    {
-      _logger.DeepDebug($"WriteString '{symbolicAddress}'");
+    { 
+      _logger.DeepDebug($"Write string '{symbolicAddress}'");
 
       _subscriptions[symbolicAddress] = value;
       return Task.FromResult(true);
@@ -77,7 +77,7 @@ namespace CopaData.Drivers.Samples.Basic
 
     public Task<bool> WriteNumericAsync(string symbolicAddress, double value, DateTime dateTime, StatusBits status)
     {
-      _logger.DeepDebug($"WriteString '{symbolicAddress}'");
+      _logger.DeepDebug($"Write numeric '{symbolicAddress}'");
 
       _subscriptions[symbolicAddress] = value;
       return Task.FromResult(true);
