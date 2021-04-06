@@ -10,6 +10,10 @@ namespace CopaData.Drivers.Samples.WeatherForecast
     private ILogger _logger;
     private IValueCallback _valueCallback;
 
+    // default: position of Copadata headquarter
+    private double latitude { get; set; } = 47.7942531;
+    private double longitude { get; set; } = 13.0119902;
+
     //Variables are created in Engineering Studio. If advised, variables are stored in this dictionary
     private Dictionary<string, object> _subscriptions = new Dictionary<string, object>();
 
@@ -64,21 +68,35 @@ namespace CopaData.Drivers.Samples.WeatherForecast
     {
       if (_subscriptions.Keys.Count <= 0) return Task.CompletedTask;
 
+      var latitudeKey = "Latitude";
+      if (_subscriptions.ContainsKey(latitudeKey))
+      {
+        _subscriptions[latitudeKey] = latitude;
+        _valueCallback.SetValue(latitudeKey,latitude,DateTime.Now,StatusBits.Spontaneous);
+      }
+
+      var longitudeKey = "Longitude";
+      if (_subscriptions.ContainsKey(longitudeKey))
+      {
+        _subscriptions[longitudeKey] = longitude;
+        _valueCallback.SetValue(longitudeKey,longitude,DateTime.Now,StatusBits.Spontaneous);
+      }
+
       //Take care on the subscription! for the example, a free developer key is used. If used excessively, the costs can be increased drastically.
       //Also think setting the update time of the driver to a long interval. after all, weather does not need to be queried multiple times a second, right?
       var weatherFrog = new AzureWeatherApiClient();
       var weatherKeys = weatherFrog.GetWeatherParameterKeys();
-      var weatherDataTask = weatherFrog.GetCurrentWeatherData("47.7942531","13.0119902"); //position of CD-HQ
+      var weatherDataTask = weatherFrog.GetCurrentWeatherData(latitude.ToString(),longitude.ToString());
       weatherDataTask.Wait();
       var weatherData = weatherDataTask.Result;
 
       var statusBit = StatusBits.Spontaneous;
       if (weatherData.HasErrors())
       {
-        //If you defined a variable with the symbolic address 'Error' the error message is set to the value of that variable.
-        if (_subscriptions.ContainsKey("Error"))
+        //If you defined a variable with the symbolic address 'ErrorText' the error message is set to the value of that variable.
+        if (_subscriptions.ContainsKey("ErrorText"))
         {
-          _valueCallback.SetValue("Error", (string) weatherData.Error, DateTime.Now, StatusBits.Invalid);
+          _valueCallback.SetValue("ErrorText", (string) weatherData.Error, DateTime.Now, StatusBits.Invalid);
         }
 
         statusBit &= StatusBits.Invalid;
@@ -116,6 +134,17 @@ namespace CopaData.Drivers.Samples.WeatherForecast
     /// </summary>
     public Task<bool> WriteNumericAsync(string symbolicAddress, double value, DateTime dateTime, StatusBits statusBits)
     {
+      if (symbolicAddress == "Latitude")
+      {
+        latitude = value;
+        return Task.FromResult(true);
+      }
+
+      if (symbolicAddress == "Longitude")
+      {
+        longitude = value;
+        return Task.FromResult(true);
+      }
       //writing values is not allowed
       return Task.FromResult(false);
     }
