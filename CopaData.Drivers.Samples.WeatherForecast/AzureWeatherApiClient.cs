@@ -12,7 +12,7 @@ namespace CopaData.Drivers.Samples.WeatherForecast
   {
     #region primary Key for the API - not to show!
 
-    private static readonly string primaryKey = "6c3_xdoIFm5Npmb6baI6EOiCOoANhC6aTPBsuhK9shY";
+    private static readonly string primaryKey = "dkot4WmD47rk78sb3s2zjFxz7_8JuuFsjnbsVpYBHVI";
 
     #endregion
 
@@ -20,8 +20,8 @@ namespace CopaData.Drivers.Samples.WeatherForecast
       "https://atlas.microsoft.com/weather/currentConditions/json?api-version=1.0&query={0},{1}&subscription-key={2}";
 
     //Copadata Headquarter coordinates are used as fallback if input coordinates are invalid.
-    private static readonly string CD_HQ_LATITUDE = "47.7942531";
-    private static readonly string CD_HQ_LONGITUDE = "13.0119902";
+    private static readonly double CD_HQ_LATITUDE = 47.7942531;
+    private static readonly double CD_HQ_LONGITUDE = 13.0119902;
 
     public string[] GetWeatherParameterKeys()
     {
@@ -44,33 +44,23 @@ namespace CopaData.Drivers.Samples.WeatherForecast
       };
     }
 
-    public async Task<WeatherData> GetCurrentWeatherData(string latitude, string longitude)
+    public async Task<WeatherData> GetCurrentWeatherData(double latitude, double longitude)
     {
       var weatherData = new WeatherData();
       #region InputValidation
       try
       {
-        if (double.TryParse(latitude, out var latitudeValue) && double.TryParse(longitude, out var longitudeValue))
+        if (latitude < -90.0 || latitude > 90.0)
         {
-          if (latitudeValue < -90.0 || latitudeValue > 90.0)
-          {
-            weatherData.Error +=
-              $" Latitude not within -90° and +90°. Value: '{latitude}'. Instead, location of CD-HQ is used.";
-            latitude = CD_HQ_LATITUDE;
-            longitude = CD_HQ_LONGITUDE;
-          }
-          if (longitudeValue < -180.0 || longitudeValue > 180.0)
-          {
-            weatherData.Error +=
-              $" Longitude not within -180° and +180°. Value: '{longitude}'. Instead, location of CD-HQ is used.";
-            latitude = CD_HQ_LATITUDE;
-            longitude = CD_HQ_LONGITUDE;
-          }
+          weatherData.Error +=
+            $" Latitude not within -90° and +90°. Value: '{latitude}'. Instead, location of CD-HQ is used.";
+          latitude = CD_HQ_LATITUDE;
+          longitude = CD_HQ_LONGITUDE;
         }
-        else
+        if (longitude < -180.0 || longitude > 180.0)
         {
-          weatherData.Error =
-            $"latitude and/or longitude are not in a parseable string. string for latitude: '{latitude}' for longitude: '{longitude}'. Instead, location of CD-HQ is used ";
+          weatherData.Error +=
+            $" Longitude not within -180° and +180°. Value: '{longitude}'. Instead, location of CD-HQ is used.";
           latitude = CD_HQ_LATITUDE;
           longitude = CD_HQ_LONGITUDE;
         }
@@ -80,7 +70,10 @@ namespace CopaData.Drivers.Samples.WeatherForecast
         weatherData.Error = "Error in parsing parameters for latitude and longitude " + e.Message;
       }
       #endregion
-      var uri = string.Format(WEATHER_MAP_API_ENDPOINT, latitude, longitude, primaryKey);
+      var uri = string.Format(WEATHER_MAP_API_ENDPOINT
+        , latitude.ToString("#.#######",System.Globalization.CultureInfo.InvariantCulture)
+        , longitude.ToString("#.#######",System.Globalization.CultureInfo.InvariantCulture)
+        , primaryKey);
 
       try
       {
@@ -100,7 +93,7 @@ namespace CopaData.Drivers.Samples.WeatherForecast
                                 response.RequestMessage + "'";
             return weatherData;
           }
-          
+
           //Parsing JSON result. If any key is added, add parsing for the value here
           var responseBody = await response.Content.ReadAsStringAsync();
           var jsonData = (JObject)JsonConvert.DeserializeObject(responseBody);

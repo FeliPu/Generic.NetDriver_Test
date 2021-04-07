@@ -9,7 +9,7 @@ namespace CopaData.Drivers.Samples.WeatherForecast
 {
   public interface IWeatherFrog
   {
-    Task<WeatherData> GetCurrentWeatherData(string longitude, string latitude);
+    Task<WeatherData> GetCurrentWeatherData(double longitude, double latitude);
     string[] GetWeatherParameterKeys();
   }
 }

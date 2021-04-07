@@ -86,7 +86,7 @@ namespace CopaData.Drivers.Samples.WeatherForecast
       //Also think setting the update time of the driver to a long interval. after all, weather does not need to be queried multiple times a second, right?
       var weatherFrog = new AzureWeatherApiClient();
       var weatherKeys = weatherFrog.GetWeatherParameterKeys();
-      var weatherDataTask = weatherFrog.GetCurrentWeatherData(latitude.ToString(),longitude.ToString());
+      var weatherDataTask = weatherFrog.GetCurrentWeatherData(latitude,longitude);
       weatherDataTask.Wait();
       var weatherData = weatherDataTask.Result;
 
