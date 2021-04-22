@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="CopaData.Drivers.Contracts">
+      <HintPath>..\..\..\..\..\Program Files (x86)\COPA-DATA\zenon 10\DriverFramework\CopaData.Drivers.Contracts.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

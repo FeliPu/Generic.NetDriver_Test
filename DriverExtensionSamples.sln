@@ -19,7 +19,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CopaData.Drivers.Samples.Mq
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CopaData.Drivers.Samples.Rest", "Samples\CopaData.Drivers.Samples.Rest\CopaData.Drivers.Samples.Rest.csproj", "{4B84ED15-D914-4689-B8BA-512BB230ABC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopaData.Drivers.Samples.WeatherForecast", "CopaData.Drivers.Samples.WeatherForecast\CopaData.Drivers.Samples.WeatherForecast.csproj", "{048ABE5A-3D8D-41D5-A8CC-692253CC3ACD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zenBot", "Samples\CopaData.Drivers.Samples.zenBot\zenBot\zenBot.csproj", "{ECD6AC80-5FD1-43FE-8D55-E0D9AF239FB5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CopaData.Drivers.Samples.WeatherForecast", "Samples\CopaData.Drivers.Samples.WeatherForecast\CopaData.Drivers.Samples.WeatherForecast.csproj", "{09259670-5985-438C-8C25-2EEE6C8AE483}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CopaData.Drivers.Samples.SystemMonitor", "Samples\CopaData.Drivers.Samples.SystemMonitor\CopaData.Drivers.Samples.SystemMonitor.csproj", "{B3A4DA26-CA97-4A74-BFB2-186BBD5CFBEE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CopaData.Drivers.Samples.SqlDatabase", "Samples\CopaData.Drivers.Samples.Database\CopaData.Drivers.Samples.SqlDatabase.csproj", "{E1284E46-B50F-470E-8E4D-793ACC81164B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,10 +57,22 @@ Global
 		{4B84ED15-D914-4689-B8BA-512BB230ABC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B84ED15-D914-4689-B8BA-512BB230ABC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B84ED15-D914-4689-B8BA-512BB230ABC9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{048ABE5A-3D8D-41D5-A8CC-692253CC3ACD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{048ABE5A-3D8D-41D5-A8CC-692253CC3ACD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{048ABE5A-3D8D-41D5-A8CC-692253CC3ACD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{048ABE5A-3D8D-41D5-A8CC-692253CC3ACD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECD6AC80-5FD1-43FE-8D55-E0D9AF239FB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECD6AC80-5FD1-43FE-8D55-E0D9AF239FB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECD6AC80-5FD1-43FE-8D55-E0D9AF239FB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECD6AC80-5FD1-43FE-8D55-E0D9AF239FB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09259670-5985-438C-8C25-2EEE6C8AE483}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09259670-5985-438C-8C25-2EEE6C8AE483}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09259670-5985-438C-8C25-2EEE6C8AE483}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09259670-5985-438C-8C25-2EEE6C8AE483}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3A4DA26-CA97-4A74-BFB2-186BBD5CFBEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3A4DA26-CA97-4A74-BFB2-186BBD5CFBEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3A4DA26-CA97-4A74-BFB2-186BBD5CFBEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3A4DA26-CA97-4A74-BFB2-186BBD5CFBEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1284E46-B50F-470E-8E4D-793ACC81164B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1284E46-B50F-470E-8E4D-793ACC81164B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1284E46-B50F-470E-8E4D-793ACC81164B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1284E46-B50F-470E-8E4D-793ACC81164B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,7 +84,10 @@ Global
 		{28747458-D45E-4FB4-83AA-9D56B1495CEC} = {966A6E61-BCAB-4850-95A0-B245A32D07D7}
 		{84BA2B7F-BAD0-4589-B932-BCE299D1A221} = {966A6E61-BCAB-4850-95A0-B245A32D07D7}
 		{4B84ED15-D914-4689-B8BA-512BB230ABC9} = {966A6E61-BCAB-4850-95A0-B245A32D07D7}
-		{048ABE5A-3D8D-41D5-A8CC-692253CC3ACD} = {966A6E61-BCAB-4850-95A0-B245A32D07D7}
+		{ECD6AC80-5FD1-43FE-8D55-E0D9AF239FB5} = {966A6E61-BCAB-4850-95A0-B245A32D07D7}
+		{09259670-5985-438C-8C25-2EEE6C8AE483} = {966A6E61-BCAB-4850-95A0-B245A32D07D7}
+		{B3A4DA26-CA97-4A74-BFB2-186BBD5CFBEE} = {966A6E61-BCAB-4850-95A0-B245A32D07D7}
+		{E1284E46-B50F-470E-8E4D-793ACC81164B} = {966A6E61-BCAB-4850-95A0-B245A32D07D7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ECACCBEA-6F10-488A-B51C-093CDB909EBF}

@@ -14,9 +14,6 @@ namespace CopaData.Drivers.Samples.WeatherForecast
     private double latitude { get; set; } = 47.7942531;
     private double longitude { get; set; } = 13.0119902;
 
-    //Variables are created in Engineering Studio. If advised, variables are stored in this dictionary
-    private Dictionary<string, object> _subscriptions = new Dictionary<string, object>();
-
     /// <summary>
     /// Is called when the driver is initialized.
     /// </summary>
@@ -40,6 +37,9 @@ namespace CopaData.Drivers.Samples.WeatherForecast
       _logger.DeepDebug("All variables have been removed from subscription");
       return Task.CompletedTask;
     }
+
+    //Variables are created in Engineering Studio. If advised, variables are stored in this dictionary
+    private Dictionary<string, object> _subscriptions = new Dictionary<string, object>();
 
     /// <summary>
     /// Is called when a variable is requested

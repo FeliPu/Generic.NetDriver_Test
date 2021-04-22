@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath></OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="2.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CopaData.Drivers.Contracts">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\COPA-DATA\zenon 10\DriverFramework\CopaData.Drivers.Contracts.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <!-- For publish -->
+  <ItemGroup>
+    <None Include="$(USERPROFILE)\.nuget\packages\microsoft.data.sqlclient\2.1.2\runtimes\win\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(USERPROFILE)\.nuget\packages\microsoft.data.sqlclient.sni\2.1.1\build\net46\Microsoft.Data.SqlClient.SNI.x86.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <!-- For local debug -->
+  <Target Name="CopyToBin" BeforeTargets="Build">
+    <Copy SourceFiles="$(USERPROFILE)\.nuget\packages\microsoft.data.sqlclient\2.1.2\runtimes\win\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll" DestinationFolder="$(OutputPath)\bin" />
+  </Target>
+  <Target Name="CopyToBin" BeforeTargets="Build">
+    <Copy SourceFiles="$(USERPROFILE)\.nuget\packages\microsoft.data.sqlclient.sni\2.1.1\build\net46\Microsoft.Data.SqlClient.SNI.x86.dll" DestinationFolder="$(OutputPath)\bin" />
+  </Target>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if not exist &quot;$(registry:HKEY_LOCAL_MACHINE\SOFTWARE\COPA-DATA\DataDir@ProgramDir32_10000)DriverExtensions\Database&quot; mkdir &quot;$(registry:HKEY_LOCAL_MACHINE\SOFTWARE\COPA-DATA\DataDir@ProgramDir32_10000)DriverExtensions\Database&quot;&#xD;&#xA;copy /y &quot;$(TargetDir)\*.*&quot; &quot;$(registry:HKEY_LOCAL_MACHINE\SOFTWARE\COPA-DATA\DataDir@ProgramDir32_10000)DriverExtensions\Database&quot;&#xD;&#xA;rename &quot;$(registry:HKEY_LOCAL_MACHINE\SOFTWARE\COPA-DATA\DataDir@ProgramDir32_10000)DriverExtensions\Database\Microsoft.Data.SqlClient.SNI.x86.dll&quot; &quot;Microsoft.Data.SqlClient.SNI.dll&quot;&#xD;&#xA;" />
+  </Target>
+
+</Project>
