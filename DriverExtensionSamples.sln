@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CopaData.Drivers.Samples.Sy
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CopaData.Drivers.Samples.SqlDatabase", "Samples\CopaData.Drivers.Samples.Database\CopaData.Drivers.Samples.SqlDatabase.csproj", "{E1284E46-B50F-470E-8E4D-793ACC81164B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CopaData.Drivers.Samples.PokeDex", "Samples\CopaData.Drivers.Samples.PokeDex\CopaData.Drivers.Samples.PokeDex.csproj", "{4FA6EDCC-29AB-4666-AF6F-49DE250B378C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{E1284E46-B50F-470E-8E4D-793ACC81164B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1284E46-B50F-470E-8E4D-793ACC81164B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1284E46-B50F-470E-8E4D-793ACC81164B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FA6EDCC-29AB-4666-AF6F-49DE250B378C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FA6EDCC-29AB-4666-AF6F-49DE250B378C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FA6EDCC-29AB-4666-AF6F-49DE250B378C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FA6EDCC-29AB-4666-AF6F-49DE250B378C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +94,7 @@ Global
 		{09259670-5985-438C-8C25-2EEE6C8AE483} = {966A6E61-BCAB-4850-95A0-B245A32D07D7}
 		{B3A4DA26-CA97-4A74-BFB2-186BBD5CFBEE} = {966A6E61-BCAB-4850-95A0-B245A32D07D7}
 		{E1284E46-B50F-470E-8E4D-793ACC81164B} = {966A6E61-BCAB-4850-95A0-B245A32D07D7}
+		{4FA6EDCC-29AB-4666-AF6F-49DE250B378C} = {966A6E61-BCAB-4850-95A0-B245A32D07D7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ECACCBEA-6F10-488A-B51C-093CDB909EBF}
