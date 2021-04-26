@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using PokeApiNet;
+using System.Linq;
 
 namespace CopaData.Drivers.Samples.PokeDex
 {
@@ -22,8 +23,33 @@ namespace CopaData.Drivers.Samples.PokeDex
 
         public async Task ReadAllAsync()
         {
-            Pokemon hoOh = await pokeclient.GetResourceAsync<Pokemon>("ho-oh");
-            ValueCallback.SetValue("test", hoOh.Height);
+
+            Pokemon pokemon = await pokeclient.GetResourceAsync<Pokemon>("ho-oh");
+            List<Ability> allAbilities = await pokeclient.GetResourceAsync(pokemon.Abilities.Select(ability => ability.Ability));
+            ValueCallback.SetValue("Name", pokemon.Name);
+            ValueCallback.SetValue("Height", pokemon.Height);
+            ValueCallback.SetValue("ID", pokemon.Id);
+
+            for (int i = 0; i < 3; i++)
+            {
+                if (allAbilities[i] == null) { break; }
+                else {
+                    string inst1 = "Ability";
+                    inst1 += i;
+                    ValueCallback.SetValue(inst1 += i, allAbilities[i].Name);
+                    for (int ii = 0; ii < allAbilities.Count; ii++)
+                    {
+                        if (allAbilities[i].FlavorTextEntries[ii].Language.Name == "en")
+                        {
+                            string inst2 = "Flavor";
+                            inst2 += i;
+                            ValueCallback.SetValue(inst2, allAbilities[i].FlavorTextEntries[ii].FlavorText);
+                            break;
+                        }
+                    }
+                }
+            }
+
             return;
         }
 
