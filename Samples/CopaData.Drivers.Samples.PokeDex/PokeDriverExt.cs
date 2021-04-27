@@ -1,10 +1,9 @@
 ﻿using CopaData.Drivers.Contracts;
+using PokeApiNet;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using PokeApiNet;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CopaData.Drivers.Samples.PokeDex
 {
@@ -24,24 +23,36 @@ namespace CopaData.Drivers.Samples.PokeDex
         public async Task ReadAllAsync()
         {
             var pokename = "ho-ho"; //defaultwert
-            if(advicedvariables.ContainsKey("inname")
+            if (advicedvariables.ContainsKey("inname")
                 && advicedvariables["inname"] != null)
             {
-                pokename = (string) advicedvariables["inname"];
+                pokename = (string)advicedvariables["inname"];
             }
             Pokemon pokemon = await pokeclient.GetResourceAsync<Pokemon>(pokename);
             List<Ability> allAbilities = await pokeclient.GetResourceAsync(pokemon.Abilities.Select(ability => ability.Ability));
+            PokemonSpecies species = await pokeclient.GetResourceAsync<PokemonSpecies>(pokename);
+
             ValueCallback.SetValue("Name", pokemon.Name);
             ValueCallback.SetValue("Height", pokemon.Height);
             ValueCallback.SetValue("ID", pokemon.Id);
 
+            for(int i=0;i < species.FlavorTextEntries.Count; i++)
+            {
+                if (species.FlavorTextEntries[i].Language.Name == "en")
+                {
+                    ValueCallback.SetValue("Description", species.FlavorTextEntries[i].FlavorText);
+                    break;
+                }
+            }
+
             for (int i = 0; i < 3; i++)
             {
                 if (allAbilities[i] == null) { break; }
-                else {
+                else
+                {
                     string inst1 = "Ability";
                     inst1 += i;
-                    ValueCallback.SetValue(inst1 += i, allAbilities[i].Name);
+                    ValueCallback.SetValue(inst1, allAbilities[i].Name);
                     for (int ii = 0; ii < allAbilities.Count; ii++)
                     {
                         if (allAbilities[i].FlavorTextEntries[ii].Language.Name == "en")
@@ -81,7 +92,7 @@ namespace CopaData.Drivers.Samples.PokeDex
 
         public Task<bool> WriteStringAsync(string symbolicAddress, string value, DateTime dateTime, StatusBits statusBits)
         {
-            if(advicedvariables.ContainsKey(symbolicAddress))
+            if (advicedvariables.ContainsKey(symbolicAddress))
             {
                 advicedvariables[symbolicAddress] = value;
             }
