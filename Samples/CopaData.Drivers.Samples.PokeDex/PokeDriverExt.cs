@@ -23,8 +23,13 @@ namespace CopaData.Drivers.Samples.PokeDex
 
         public async Task ReadAllAsync()
         {
-
-            Pokemon pokemon = await pokeclient.GetResourceAsync<Pokemon>("ho-oh");
+            var pokename = "ho-ho"; //defaultwert
+            if(advicedvariables.ContainsKey("inname")
+                && advicedvariables["inname"] != null)
+            {
+                pokename = (string) advicedvariables["inname"];
+            }
+            Pokemon pokemon = await pokeclient.GetResourceAsync<Pokemon>(pokename);
             List<Ability> allAbilities = await pokeclient.GetResourceAsync(pokemon.Abilities.Select(ability => ability.Ability));
             ValueCallback.SetValue("Name", pokemon.Name);
             ValueCallback.SetValue("Height", pokemon.Height);
@@ -57,9 +62,10 @@ namespace CopaData.Drivers.Samples.PokeDex
         {
             return Task.CompletedTask;
         }
-
+        public Dictionary<string, object> advicedvariables { get; set; } = new Dictionary<string, object>();
         public Task<bool> SubscribeAsync(string symbolicAddress)
         {
+            advicedvariables.Add(symbolicAddress, null);
             return Task.FromResult(true);
         }
 
@@ -75,7 +81,11 @@ namespace CopaData.Drivers.Samples.PokeDex
 
         public Task<bool> WriteStringAsync(string symbolicAddress, string value, DateTime dateTime, StatusBits statusBits)
         {
-            throw new NotImplementedException();
+            if(advicedvariables.ContainsKey(symbolicAddress))
+            {
+                advicedvariables[symbolicAddress] = value;
+            }
+            return Task.FromResult(true);
         }
     }
 }
