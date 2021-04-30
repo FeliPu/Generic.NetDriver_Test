@@ -22,23 +22,34 @@ namespace CopaData.Drivers.Samples.PokeDex
 
         public async Task ReadAllAsync()
         {
-            var pokename = "ho-ho"; //defaultwert
+            var pokename = "bulbasaur"; //defaultwert
             if (advicedvariables.ContainsKey("inname")
                 && advicedvariables["inname"] != null)
             {
                 pokename = (string)advicedvariables["inname"];
             }
+            ValueCallback.SetValue("Type2", " ");
+            ValueCallback.SetValue("Description", " ");
+            ValueCallback.SetValue("Ability0", " ");
+            ValueCallback.SetValue("Ability1", " ");
+            ValueCallback.SetValue("Ability2", " ");
+            ValueCallback.SetValue("Flavor0", " ");
+            ValueCallback.SetValue("Flavor1", " ");
+            ValueCallback.SetValue("Flavor2", " ");
             Pokemon pokemon = await pokeclient.GetResourceAsync<Pokemon>(pokename);
             List<Ability> allAbilities = await pokeclient.GetResourceAsync(pokemon.Abilities.Select(ability => ability.Ability));
             PokemonSpecies species = await pokeclient.GetResourceAsync<PokemonSpecies>(pokename);
 
             ValueCallback.SetValue("Name", pokemon.Name);
-            ValueCallback.SetValue("Height", pokemon.Height);
+            ValueCallback.SetValue("Height", pokemon.Height*10);
             ValueCallback.SetValue("ID", pokemon.Id);
+            ValueCallback.SetValue("Weight", pokemon.Weight/10);
+            ValueCallback.SetValue("Type1", pokemon.Types[0].Type.Name);
+            ValueCallback.SetValue("Type2", pokemon.Types[1].Type.Name);
 
-            for(int i=0;i < species.FlavorTextEntries.Count; i++)
+            for (int i=0;i < species.FlavorTextEntries.Count; i++)
             {
-                if (species.FlavorTextEntries[i].Language.Name == "en")
+                if (species.FlavorTextEntries[i].Language.Name == "en"&&species.FlavorTextEntries[i].FlavorText !=null)
                 {
                     ValueCallback.SetValue("Description", species.FlavorTextEntries[i].FlavorText);
                     break;
@@ -55,7 +66,7 @@ namespace CopaData.Drivers.Samples.PokeDex
                     ValueCallback.SetValue(inst1, allAbilities[i].Name);
                     for (int ii = 0; ii < allAbilities.Count; ii++)
                     {
-                        if (allAbilities[i].FlavorTextEntries[ii].Language.Name == "en")
+                        if (allAbilities[i].FlavorTextEntries[ii].Language.Name == "en" && allAbilities[i].FlavorTextEntries[ii].FlavorText != null)
                         {
                             string inst2 = "Flavor";
                             inst2 += i;
@@ -65,7 +76,6 @@ namespace CopaData.Drivers.Samples.PokeDex
                     }
                 }
             }
-
             return;
         }
 
