@@ -45,7 +45,10 @@ namespace CopaData.Drivers.Samples.PokeDex
             ValueCallback.SetValue("ID", pokemon.Id);
             ValueCallback.SetValue("Weight", pokemon.Weight/10);
             ValueCallback.SetValue("Type1", pokemon.Types[0].Type.Name);
-            ValueCallback.SetValue("Type2", pokemon.Types[1].Type.Name);
+            if (pokemon.Types.Count > 1)
+            {
+                ValueCallback.SetValue("Type2", pokemon.Types[1].Type.Name); //->> NUll exception
+            }
 
             for (int i=0;i < species.FlavorTextEntries.Count; i++)
             {
@@ -58,7 +61,7 @@ namespace CopaData.Drivers.Samples.PokeDex
 
             for (int i = 0; i < 3; i++)
             {
-                if (allAbilities[i] == null) { break; }
+                if ( i >= allAbilities.Count) { break; }
                 else
                 {
                     string inst1 = "Ability";
